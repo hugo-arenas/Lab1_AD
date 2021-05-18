@@ -1,5 +1,18 @@
-filename = "C:/Users/dratz/Desktop/Lab_Analisis-de-Datos/Lab1_AD/breast-cancer.data"
+dirstudio <- dirname(rstudioapi::getSourceEditorContext()$path)
+filename <- "breast-cancer.data"
+file <- file.path(dirstudio, filename)
 columns <- c("class", "age", "menopause", "tumor.size", "inv.nodes", 
              "node.caps","deg.malig", "breast", "breast.quad", "irradiat")
-table <- read.csv(filename, col.names = columns) 
-data.mean <- tapply(table$deg.malig, INDEX = table$class, FUN = mean)
+tabla <- read.csv(file, col.names = columns) 
+subtabla1 <- table(tabla$class, table$age)
+subtabla2 <- table(tabla$class, table$menopause)
+subtabla3 <- table(tabla$class, table$tumor.size)
+subtabla4 <- table(tabla$class, table$inv.nodes)
+subtabla5 <- table(tabla$class, table$node.caps)
+subtabla6 <- table(tabla$class, table$deg.malig)
+subtabla7 <- table(tabla$class, table$breast)
+subtabla8 <- table(tabla$class, table$breast.quad)
+subtabla9 <- table(tabla$class, table$irradiat)
+#data.mean <- tapply(table$deg.malig, INDEX = table$class, FUN = mean)
+#class.table <- table(tabla$class)
+#dat <- prop.table(class.table)
