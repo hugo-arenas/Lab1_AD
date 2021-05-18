@@ -53,5 +53,41 @@ attach(tabla2)
 age_class<- table(age, class)
 age_class
 
+attach(tabla2)
+age_menopause<- table(age, menopause)
+age_menopause
+
+attach(tabla2)
+age_tumor.size<- table(age, tumor.size)
+age_tumor.size
+
+attach(tabla2)
+age_inv.nodes<- table(age, inv.nodes)
+age_inv.nodes
+
+attach(tabla2)
+age_node.caps<- table(age, node.caps)
+age_node.caps
+
+attach(tabla2)
+age_deg.malig<- table(age, deg.malig)
+age_deg.malig
+attach(tabla2)
+age_breast<- table(age, breast )
+age_breast
+attach(tabla2)
+age_breast.quad<- table(age, breast.quad)
+age_breast.quad
+
+
 library(vcd)
 assocstats(age_class)
+assocstats(age_menopause)
+assocstats(age_tumor.size)
+assocstats(age_inv.nodes)
+assocstats(age_node.caps)
+assocstats(age_deg.malig)
+assocstats(age_breast)
+assocstats(age_breast.quad)
+
+
