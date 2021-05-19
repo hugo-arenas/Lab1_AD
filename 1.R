@@ -129,16 +129,10 @@ cor.class_breast <- assocstats(class_breast)
 cor.class_breast.quad <- assocstats(class_breast.quad)
 cor.class_irradiat <- assocstats(class_irradiat)
 
-dl <- xtabs(~ class + age, data = tabla2)
-dl.class_age <- data.frame(dl)
-#dl.class_age <- gather(
-#  data = dl,
-#  key = "edad",
-#  value = "cantidad",
-#  c("20-29","30-39","40-49","50-59", "60-69", "70-79")
-#)
+dl.class_age <- xtabs(~ class + age, data = tabla2)
+dl.class_age <- data.frame(dl.class_age)
 ez.aov <- ezANOVA(
-  data = df, 
+  data = dl.class_age, 
   dv = Freq,
   wid = class,
   within = age,
