@@ -41,8 +41,15 @@ tabla2$irradiat <- as.factor(tabla2$irradiat)
 
 summary(tabla2)
 
-tabla2=tabla2[!(tabla2$node.caps == "?"),]
-tabla2=tabla2[!(tabla2$breast.quad == "?"),]
+bool.values <- tabla2$node.caps=='?'
+tabla2 <- tabla2[!bool.values,]
+
+bool.values <- tabla2$breast.quad =='?'
+tabla2 <- tabla2[!bool.values,]
+
+
+#tabla2=tabla2[!(tabla2$node.caps == "?"),]
+#tabla2=tabla2[!(tabla2$breast.quad == "?"),]
 
 summary(tabla2)
 
@@ -53,31 +60,28 @@ attach(tabla2)
 age_class<- table(age, class)
 age_class
 
-attach(tabla2)
 age_menopause<- table(age, menopause)
 age_menopause
 
-attach(tabla2)
 age_tumor.size<- table(age, tumor.size)
 age_tumor.size
 
-attach(tabla2)
 age_inv.nodes<- table(age, inv.nodes)
 age_inv.nodes
 
-attach(tabla2)
 age_node.caps<- table(age, node.caps)
 age_node.caps
+age_node.caps[, -1]
 
-attach(tabla2)
 age_deg.malig<- table(age, deg.malig)
 age_deg.malig
-attach(tabla2)
+
 age_breast<- table(age, breast )
 age_breast
-attach(tabla2)
+
 age_breast.quad<- table(age, breast.quad)
 age_breast.quad
+age_breast.quad[, -1]
 
 
 library(vcd)
@@ -89,5 +93,4 @@ assocstats(age_node.caps)
 assocstats(age_deg.malig)
 assocstats(age_breast)
 assocstats(age_breast.quad)
-
 
