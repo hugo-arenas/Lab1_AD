@@ -1,4 +1,4 @@
-#Laboratorio 1 - Análisis de Datos
+#Laboratorio 1 - Anï¿½lisis de Datos
 #Integrantes:
 #            -Hugo Arenas
 #            -Juan Arredondo
@@ -135,7 +135,70 @@ rownames(tablaDatos) = c("Class"
 #Finalmente se convierte a tabla y se muestra
 tablaDeCorrelaciones=as.table(tablaDatos)
 tablaDeCorrelaciones
-barplot(tablaDeCorrelaciones, names.arg = colnames(tablaDatos))
+
+tablaDeCorrelaciones <- as.data.frame(tablaDeCorrelaciones)
+
+library (ggplot2) 
+
+#Gráfico de las correlaciones de los distintos atributos con respecto a la clase
+
+ggplot(data=tablaDeCorrelaciones, aes(x=reorder(Var2, -Freq), y=Freq, fill = Var2)) + 
+    geom_bar(stat="identity", position="stack")+ theme_minimal()
+
+
+class_ageGrafico <- as.data.frame(class_age)
+
+#Gráfico de frecuencias de edades dependiendo el tipo de clase
+ggplot(data=class_ageGrafico, aes(x=age , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_menopauseGrafico <- as.data.frame(class_menopause)
+
+#Gráfico de frecuencias de tipo de menopausia dependiendo el tipo de clase
+ggplot(data=class_menopauseGrafico, aes(x=menopause , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_tumor.sizeGrafico <- as.data.frame(class_tumor.size)
+
+#Gráfico de frecuencias de tamaño de tumor dependiendo el tipo de clase
+ggplot(data=class_tumor.sizeGrafico, aes(x=tumor.size , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_inv.nodesGrafico <- as.data.frame(class_inv.nodes)
+
+#Gráfico de frecuencias de inv.nodes dependiendo el tipo de clase
+ggplot(data=class_inv.nodesGrafico, aes(x=inv.nodes , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_node.capsGrafico <- as.data.frame(class_node.caps)
+
+#Gráfico de frecuencias de node.caps dependiendo el tipo de clase
+ggplot(data=class_node.capsGrafico, aes(x=node.caps , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_deg.maligGrafico <- as.data.frame(class_deg.malig)
+
+#Gráfico de frecuencias de deg.malig dependiendo el tipo de clase
+ggplot(data=class_deg.maligGrafico, aes(x=deg.malig , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_breastGrafico <- as.data.frame(class_breast)
+
+#Gráfico de frecuencias de breast dependiendo el tipo de clase
+ggplot(data=class_breastGrafico, aes(x=breast , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_breast.quadGrafico <- as.data.frame(class_breast.quad)
+
+#Gráfico de frecuencias de breast.quad dependiendo el tipo de clase
+ggplot(data=class_breast.quadGrafico, aes(x=breast.quad , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
+
+class_irradiatGrafico <- as.data.frame(class_irradiat)
+
+#Gráfico de frecuencias de breast dependiendo el tipo de clase
+ggplot(data=class_irradiatGrafico, aes(x=irradiat , y=Freq, fill = class)) + 
+  geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
 
 #Se realiza anova para las tablas.
 dl.class_age <- data.frame(class_age)
@@ -145,7 +208,7 @@ p1 <- ggboxplot(
   xlab = "Rango de años", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
 )
 print(p1)
 aov.class_age <- ezANOVA(
