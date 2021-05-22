@@ -371,3 +371,15 @@ aov.class_irradiat <- ezANOVA(
   type = 3,
   return_aov = TRUE
 )
+
+#Se puede análizar este test para calcular la asociación
+test.fisher <- with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
+
+#Esto indica que hay una asociación significativa,
+#pero antes de declarar esto, tenemos que considerar 
+#que hay otras variables que pueden ser importante, y que 
+#además pueden presentar co-linealidad. Por lo tanto, 
+#para estar seguros de esta asociación, tenemos que controlar 
+#las otras variables. Esto se puede probar con regresión 
+#logística, que además sirve como método de clasificación.
+
