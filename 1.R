@@ -65,31 +65,6 @@ tabla <- tabla[!bool.values,]
 summary(tabla)
 
 attach(tabla)
-#age_class<- table(age, class)
-#age_class
-
-#age_menopause<- table(age, menopause)
-#age_menopause
-
-#age_tumor.size<- table(age, tumor.size)
-#age_tumor.size
-
-#age_inv.nodes<- table(age, inv.nodes)
-#age_inv.nodes
-
-#age_node.caps<- table(age, node.caps)
-#age_node.caps
-#age_node.caps[, -1]
-
-#age_deg.malig<- table(age, deg.malig)
-#age_deg.malig
-
-#age_breast<- table(age, breast )
-#age_breast
-
-#age_breast.quad<- table(age, breast.quad)
-#age_breast.quad
-#age_breast.quad[, -1]
 
 class_age <- table(class, age)
 class_age
@@ -129,6 +104,7 @@ cor.class_menopause <- assocstats(class_menopause)
 cor.class_tumor.size <- assocstats(class_tumor.size)
 cor.class_inv.nodes <- assocstats(class_inv.nodes)
 cor.class_node.caps <- assocstats(class_node.caps)
+cor.class_deg.malig <- assocstats(class_deg.malig)
 cor.class_breast <- assocstats(class_breast)
 cor.class_breast.quad <- assocstats(class_breast.quad)
 cor.class_irradiat <- assocstats(class_irradiat)
@@ -137,8 +113,9 @@ cor.class_irradiat <- assocstats(class_irradiat)
 #Se crea una tabla para mostrar todo
 tablaDatos = matrix(c(cor.class_age$cramer, cor.class_menopause$creamer,
                       cor.class_tumor.size$cramer, cor.class_inv.nodes$cramer,
-                      cor.class_node.caps$cramer, cor.class_breast$cramer,
-                      cor.class_breast.quad$cramer, cor.class_irradiat$cramer),ncol=8,byrow=TRUE)
+                      cor.class_node.caps$cramer, cor.class_deg.malig$cramer,
+                      cor.class_breast$cramer, cor.class_breast.quad$cramer,
+                      cor.class_irradiat$cramer), ncol=9,byrow=TRUE)
 
 #Se le asigna nombre a las columnas
 colnames(tablaDatos) =  c("Age",
@@ -146,10 +123,10 @@ colnames(tablaDatos) =  c("Age",
                      "Tumor.size",
                      "Inv.nodes",
                      "Node.caps",
+                     "Deg.malig",
                      "Breast",
                      "Breast.quad",
-                     "Irradiat"
-)
+                     "Irradiat")
 #y a las filas
 rownames(tablaDatos) = c("Class"
 )
@@ -158,14 +135,15 @@ rownames(tablaDatos) = c("Class"
 #Finalmente se convierte a tabla y se muestra
 tablaDeCorrelaciones=as.table(tablaDatos)
 tablaDeCorrelaciones
+barplot(tablaDeCorrelaciones, names.arg = colnames(tablaDatos))
 
-dl.class_age <- xtabs(~ class + age, data = tabla2)
+dl.class_age <- xtabs(~ class + age, data = tabla)
 dl.class_age <- data.frame(dl.class_age)
 ez.aov <- ezANOVA(
   data = dl.class_age, 
   dv = Freq,
-  wid = class,
-  within = age,
+  wid = age,
+  within = class,
   type = 3,
   return_aov = TRUE
 )
