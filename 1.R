@@ -137,9 +137,18 @@ tablaDeCorrelaciones=as.table(tablaDatos)
 tablaDeCorrelaciones
 barplot(tablaDeCorrelaciones, names.arg = colnames(tablaDatos))
 
-dl.class_age <- xtabs(~ class + age, data = tabla)
-dl.class_age <- data.frame(dl.class_age)
-ez.aov <- ezANOVA(
+#Se realiza anova para las tablas.
+dl.class_age <- data.frame(class_age)
+p1 <- ggboxplot(
+  dl.class_age,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p1)
+aov.class_age <- ezANOVA(
   data = dl.class_age, 
   dv = Freq,
   wid = age,
@@ -148,3 +157,154 @@ ez.aov <- ezANOVA(
   return_aov = TRUE
 )
 
+dl.class_menopause <- data.frame(class_menopause)
+p2 <- ggboxplot(
+  dl.class_menopause,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p2)
+aov.class_menopause <- ezANOVA(
+  data = dl.class_menopause, 
+  dv = Freq,
+  wid = menopause,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_tumor.size <- data.frame(class_tumor.size)
+p3 <- ggboxplot(
+  dl.class_tumor.size,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p3)
+aov.class_tumor.size <- ezANOVA(
+  data = dl.class_tumor.size, 
+  dv = Freq,
+  wid = tumor.size,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_inv.nodes <- data.frame(class_inv.nodes)
+p4 <- ggboxplot(
+  dl.class_inv.nodes,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p4)
+aov.class_inv.nodes <- ezANOVA(
+  data = dl.class_inv.nodes, 
+  dv = Freq,
+  wid = inv.nodes,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_node.caps <- data.frame(class_node.caps)
+p5 <- ggboxplot(
+  dl.class_node.caps,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p5)
+aov.class_node.caps <- ezANOVA(
+  data = dl.class_node.caps, 
+  dv = Freq,
+  wid = node.caps,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_deg.malig <- data.frame(class_deg.malig)
+p6 <- ggboxplot(
+  dl.class_deg.malig,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p6)
+aov.class_deg.malig <- ezANOVA(
+  data = dl.class_deg.malig, 
+  dv = Freq,
+  wid = deg.malig,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_breast <- data.frame(class_breast)
+p7 <- ggboxplot(
+  dl.class_breast,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p7)
+aov.class_breast <- ezANOVA(
+  data = dl.class_breast, 
+  dv = Freq,
+  wid = breast,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_breast.quad <- data.frame(class_breast.quad)
+p8 <- ggboxplot(
+  dl.class_breast.quad,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p8)
+aov.class_breast.quad <- ezANOVA(
+  data = dl.class_breast.quad, 
+  dv = Freq,
+  wid = breast.quad,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
+
+dl.class_irradiat <- data.frame(class_irradiat)
+p9 <- ggboxplot(
+  dl.class_irradiat,
+  x = "class", y = "Freq",
+  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  color = "class",
+  add = "jitter",
+  add.params = list(color = "class", fill = "class")
+)
+print(p9)
+aov.class_irradiat <- ezANOVA(
+  data = dl.class_irradiat, 
+  dv = Freq,
+  wid = irradiat,
+  within = class,
+  type = 3,
+  return_aov = TRUE
+)
