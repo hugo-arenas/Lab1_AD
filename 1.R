@@ -12,16 +12,19 @@ library(car)
 library(lmtest)
 library(vcd)
 
-#1. Class: no-recurrence-events, recurrence-events
-#2. age: 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80-89, 90-99.
-#3. menopause: lt40, ge40, premeno.
-#4. tumor-size: 0-4, 5-9, 10-14, 15-19, 20-24, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55-59.
-#5. inv-nodes: 0-2, 3-5, 6-8, 9-11, 12-14, 15-17, 18-20, 21-23, 24-26, 27-29, 30-32, 33-35, 36-39.
-#6. node-caps: yes, no.
-#7. deg-malig: 1, 2, 3.
-#8. breast: left, right.
-#9. breast-quad: left-up, left-low, right-up, right-low, central.
-#10. irradiat: yes, no.
+#Los nombres originales de las variables, una breve explicación y los tipos de los datos:
+  
+#age (rango de edad): 10-19, 20-29, 30-39, 40-49,.
+#menopause (momento de la menopausia): lt40, ge40, premeno.
+#tumor-size (tamaño del tumor extirpado en mm): 0-4, 5-9, 10-14, .
+#inv-nodes (una métrica de presencia de células cancerosas en los nodos linfáticos): 0-2, 3-5, 6-8, 9-11,.
+#node-caps (evidencia de que células cancerosas atravesaron la cápsula de los nódulos linfáticos): yes, no
+#deg-malig (grado histológico del tumor: bajo, intermedio, alto): 1, 2, 3.
+#breast (mama afectada): left, right.
+#breast-quad (cuadrante de la mama): left-up, left-low, right-up, right-low, central.
+#irradiat (radioterapia): yes, no.
+#Class (clase) Indica recurrencia, es la variable a predecir (no-recurrencia: 201 casos, recurrencia: 85 casos)
+
 
 # Leemos los datos
 dirstudio <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -52,7 +55,9 @@ tabla$breast <- as.factor(tabla$breast)
 tabla$breast.quad <- as.factor(tabla$breast.quad) 
 tabla$irradiat <- as.factor(tabla$irradiat)
 
-
+#Lo primero es ver el rango de las variables, algunas medidas
+#de tendencia central para las variables continuas, recuentos 
+#para las categóricas y presencia de valores faltantes.
 summary(tabla)
 
 #Se sacan los datos nulos del datagrama
@@ -64,6 +69,10 @@ tabla <- tabla[!bool.values,]
 
 summary(tabla)
 
+#Hay algunas variables que de antemano podemos sospechar 
+#que están relacionadas con otras. 
+#Un ejemplo de esto es la relación entre recurrencia 
+#con las demás variables
 attach(tabla)
 
 class_age <- table(class, age)
@@ -373,7 +382,7 @@ aov.class_irradiat <- ezANOVA(
 )
 
 #Se puede análizar este test para calcular la asociación
-test.fisher <- with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
+with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
 
 #Esto indica que hay una asociación significativa,
 #pero antes de declarar esto, tenemos que considerar 
@@ -383,3 +392,42 @@ test.fisher <- with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
 #las otras variables. Esto se puede probar con regresión 
 #logística, que además sirve como método de clasificación.
 
+#Cálculamos las distintas asociaciones entre variables
+#con respecto a la clase
+
+with(as.data.frame(tabla), fisher.test( table(class, age)))
+
+with(as.data.frame(tabla), fisher.test( table(class, menopause)))
+
+with(as.data.frame(tabla), fisher.test( table(class, inv.nodes)))
+
+with(as.data.frame(tabla), fisher.test( table(class, node.caps)))
+
+with(as.data.frame(tabla), fisher.test( table(class, deg.malig)))
+
+with(as.data.frame(tabla), fisher.test( table(class, breast)))
+
+with(as.data.frame(tabla), fisher.test( table(class, breast.quad)))
+
+#Resumen
+#Hasta el momento sabemos que hay variables
+#que no parecen estar aociadas con la probabilidad de recurrencia:
+  
+#Edad
+#Menopausia
+#Mama
+#Cuadrante
+#Y otras variables que sí parecen ser importantes:
+  
+#Tamaño del tumor
+
+#Cantidad de nódulos comprometidos 
+#Grado de malignidad (histológico)
+#Cápsula (celulas cancerosas fuera de las cápsulas de los nódulos)
+#Radioterapia
+
+#Algunas de las variables no importantes, 
+#pueden serlo cuando se las considera en conjunto con otras
+#(interacciones), y algunas variables pueden presentar 
+#colinealidad entre ellas; es decir, que están asociadas 
+#entre ellas.
