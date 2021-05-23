@@ -44,7 +44,6 @@ columns <- c("class",
              "irradiat")
 
 tabla <- read.csv(file, col.names = columns)
-tabla <- tabla 
 tabla$class <- as.factor(tabla$class)
 tabla$age <- as.factor(tabla$age) 
 tabla$menopause <- as.factor(tabla$menopause) 
@@ -213,8 +212,8 @@ ggplot(data=class_irradiatGrafico, aes(x=irradiat , y=Freq, fill = class)) +
 dl.class_age <- data.frame(class_age)
 p1 <- ggboxplot(
   dl.class_age,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Age",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class"),
@@ -224,8 +223,8 @@ print(p1)
 dl.class_menopause <- data.frame(class_menopause)
 p2 <- ggboxplot(
   dl.class_menopause,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Menopause",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -235,8 +234,8 @@ print(p2)
 dl.class_tumor.size <- data.frame(class_tumor.size)
 p3 <- ggboxplot(
   dl.class_tumor.size,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Tumor.size",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -246,8 +245,8 @@ print(p3)
 dl.class_inv.nodes <- data.frame(class_inv.nodes)
 p4 <- ggboxplot(
   dl.class_inv.nodes,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Inv.nodes",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -257,8 +256,8 @@ print(p4)
 dl.class_node.caps <- data.frame(class_node.caps)
 p5 <- ggboxplot(
   dl.class_node.caps,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Node.caps",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -268,8 +267,8 @@ print(p5)
 dl.class_deg.malig <- data.frame(class_deg.malig)
 p6 <- ggboxplot(
   dl.class_deg.malig,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Deg.malig",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -279,8 +278,8 @@ print(p6)
 dl.class_breast <- data.frame(class_breast)
 p7 <- ggboxplot(
   dl.class_breast,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Breast",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -290,8 +289,8 @@ print(p7)
 dl.class_breast.quad <- data.frame(class_breast.quad)
 p8 <- ggboxplot(
   dl.class_breast.quad,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Breast.quad",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
@@ -301,8 +300,8 @@ print(p8)
 dl.class_irradiat <- data.frame(class_irradiat)
 p9 <- ggboxplot(
   dl.class_irradiat,
-  x = "class", y = "Freq",
-  xlab = "Rango de años", ylab = "Cantidad de individuos",
+  x = "class", y = "Freq", title = "Class según distribución por Irradiat",
+  xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class")
