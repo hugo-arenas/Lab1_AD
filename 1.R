@@ -208,7 +208,8 @@ class_irradiatGrafico <- as.data.frame(class_irradiat)
 ggplot(data=class_irradiatGrafico, aes(x=irradiat , y=Freq, fill = class)) + 
   geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
 
-#Se realiza anova para las tablas.
+#Se realizan diagramas de cajas para cada tabla, con tal de comprobar la
+#dispersión y normalidad de las clases según a la variable a comparar.
 dl.class_age <- data.frame(class_age)
 p1 <- ggboxplot(
   dl.class_age,
@@ -217,8 +218,13 @@ p1 <- ggboxplot(
   color = "class",
   add = "jitter",
   add.params = list(color = "class", fill = "class"),
+  label = "age",
+  repel = TRUE
 )
 print(p1)
+#Para el caso de class_age, se puede ver que la class no-recurrence-events posee
+#una mejor distribución y una mayor normalidad que la clase recurrence-events,
+#sin considerar las cantidades totales para cada clase.
 
 dl.class_menopause <- data.frame(class_menopause)
 p2 <- ggboxplot(
@@ -227,9 +233,14 @@ p2 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "menopause",
+  repel = TRUE
 )
 print(p2)
+#Para el caso de class_menopause, se puede ver que la class recurrence-events
+#posee una mejor distribución y una mayor normalidad que la clase 
+#no-recurrence-events, pues esta última tiene un dato (lt40) esta muy alejada.
 
 dl.class_tumor.size <- data.frame(class_tumor.size)
 p3 <- ggboxplot(
@@ -238,9 +249,14 @@ p3 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "tumor.size",
+  repel = TRUE
 )
 print(p3)
+#Para el caso de class_tumor.size, se puede ver que la class no-recurrence-events
+#posee una mejor distribución y una mayor normalidad que la clase 
+#recurrence-events, pues esta última tiene 2 datos alejados del centro.
 
 dl.class_inv.nodes <- data.frame(class_inv.nodes)
 p4 <- ggboxplot(
@@ -249,9 +265,14 @@ p4 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "inv.nodes",
+  repel = TRUE
 )
 print(p4)
+#Para el caso de class_inv.nodes, ambas clases no poseen una normalidad dado que
+#sus datos estan fuera del rango de sus respectivas cajas, sobre todo para la
+#clase no-recurrence-events.
 
 dl.class_node.caps <- data.frame(class_node.caps)
 p5 <- ggboxplot(
@@ -260,9 +281,14 @@ p5 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "node.caps",
+  repel = TRUE
 )
 print(p5)
+#Para el caso de class_node.caps, como ambas clases presentan 2 tipos de datos,
+#tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
+#presente una variación de su normalidad. Solo varían en sus cantidades totales.
 
 dl.class_deg.malig <- data.frame(class_deg.malig)
 p6 <- ggboxplot(
@@ -271,9 +297,14 @@ p6 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "deg.malig",
+  repel = TRUE
 )
 print(p6)
+#Para el caso de class_deg.malig, la clase recurrence-events presenta una mejor
+#distribución y normalidad con respecto a la clase no-recurrence-events, dado
+#que esta última tiene un dato casi fuera de rango.
 
 dl.class_breast <- data.frame(class_breast)
 p7 <- ggboxplot(
@@ -282,9 +313,14 @@ p7 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "breast",
+  repel = TRUE
 )
 print(p7)
+#Para el caso de class_breast, como ambas clases presentan 2 tipos de datos,
+#tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
+#presente una variación de su normalidad. Solo varias en sus cantidades totales.
 
 dl.class_breast.quad <- data.frame(class_breast.quad)
 p8 <- ggboxplot(
@@ -293,9 +329,14 @@ p8 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "breast.quad",
+  repel = TRUE
 )
 print(p8)
+#Para el caso de class_breast.quad, la clase recurrence-events presenta una mejor
+#distribución y normalidad con respecto a la clase no-recurrence-events, dado
+#que esta última tiene un promedio más alejado hacia abajo que más centralizado.
 
 dl.class_irradiat <- data.frame(class_irradiat)
 p9 <- ggboxplot(
@@ -304,9 +345,14 @@ p9 <- ggboxplot(
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
   add = "jitter",
-  add.params = list(color = "class", fill = "class")
+  add.params = list(color = "class", fill = "class"),
+  label = "irradiat",
+  repel = TRUE
 )
 print(p9)
+#Para el caso de class_irradiat, como ambas clases presentan 2 tipos de datos,
+#tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
+#presente una variación de su normalidad. Solo varias en sus cantidades totales
 
 #Se puede análizar este test para calcular la asociación
 with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
