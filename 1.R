@@ -119,7 +119,7 @@ cor.class_irradiat <- assocstats(class_irradiat)
 
 
 #Se crea una tabla para mostrar todo
-tablaDatos = matrix(c(cor.class_age$cramer, cor.class_menopause$creamer,
+tablaDatos = matrix(c(cor.class_age$cramer, cor.class_menopause$cramer,
                       cor.class_tumor.size$cramer, cor.class_inv.nodes$cramer,
                       cor.class_node.caps$cramer, cor.class_deg.malig$cramer,
                       cor.class_breast$cramer, cor.class_breast.quad$cramer,
