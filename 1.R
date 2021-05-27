@@ -103,57 +103,7 @@ class_breast.quad
 class_irradiat <- table(class, irradiat)
 class_irradiat
 
-#Calculamos las distintas correlaciones entre los datos.
-
-#En este caso las correlaciones entre la clase principal y los atributos
-
-cor.class_age <- assocstats(class_age)
-cor.class_menopause <- assocstats(class_menopause)
-cor.class_tumor.size <- assocstats(class_tumor.size)
-cor.class_inv.nodes <- assocstats(class_inv.nodes)
-cor.class_node.caps <- assocstats(class_node.caps)
-cor.class_deg.malig <- assocstats(class_deg.malig)
-cor.class_breast <- assocstats(class_breast)
-cor.class_breast.quad <- assocstats(class_breast.quad)
-cor.class_irradiat <- assocstats(class_irradiat)
-
-
-#Se crea una tabla para mostrar todo
-tablaDatos = matrix(c(cor.class_age$cramer, cor.class_menopause$cramer,
-                      cor.class_tumor.size$cramer, cor.class_inv.nodes$cramer,
-                      cor.class_node.caps$cramer, cor.class_deg.malig$cramer,
-                      cor.class_breast$cramer, cor.class_breast.quad$cramer,
-                      cor.class_irradiat$cramer), ncol=9,byrow=TRUE)
-
-#Se le asigna nombre a las columnas
-colnames(tablaDatos) =  c("Age",
-                          "Menopause",
-                          "Tumor.size",
-                          "Inv.nodes",
-                          "Node.caps",
-                          "Deg.malig",
-                          "Breast",
-                          "Breast.quad",
-                          "Irradiat")
-#y a las filas
-rownames(tablaDatos) = c("Class"
-)
-
-
-#Finalmente se convierte a tabla y se muestra
-tablaDeCorrelaciones=as.table(tablaDatos)
-tablaDeCorrelaciones
-
-tablaDeCorrelaciones <- as.data.frame(tablaDeCorrelaciones)
-
-library (ggplot2) 
-
-#Gráfico de las correlaciones de los distintos atributos con respecto a la clase
-
-ggplot(data=tablaDeCorrelaciones, aes(x=reorder(Var2, -Freq), y=Freq, fill = Var2)) + 
-  geom_bar(stat="identity", position="stack")+ theme_minimal()
-
-
+#-------------------------------------------------------------------------------
 class_ageGrafico <- as.data.frame(class_age)
 
 #Gráfico de frecuencias de edades dependiendo el tipo de clase
@@ -208,11 +158,12 @@ class_irradiatGrafico <- as.data.frame(class_irradiat)
 ggplot(data=class_irradiatGrafico, aes(x=irradiat , y=Freq, fill = class)) + 
   geom_bar(stat="identity", position=position_dodge())+ theme_minimal()+ theme_classic()
 
+#-------------------------------------------------------------------------------
+
 #Se realizan diagramas de cajas para cada tabla, con tal de comprobar la
 #dispersión y normalidad de las clases según a la variable a comparar.
-dl.class_age <- data.frame(class_age)
 p1 <- ggboxplot(
-  dl.class_age,
+  class_ageGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Age",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -226,9 +177,8 @@ print(p1)
 #una mejor distribución y una mayor normalidad que la clase recurrence-events,
 #sin considerar las cantidades totales para cada clase.
 
-dl.class_menopause <- data.frame(class_menopause)
 p2 <- ggboxplot(
-  dl.class_menopause,
+  class_menopauseGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Menopause",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -242,9 +192,8 @@ print(p2)
 #posee una mejor distribución y una mayor normalidad que la clase 
 #no-recurrence-events, pues esta última tiene un dato (lt40) esta muy alejada.
 
-dl.class_tumor.size <- data.frame(class_tumor.size)
 p3 <- ggboxplot(
-  dl.class_tumor.size,
+  class_tumor.sizeGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Tumor.size",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -258,9 +207,8 @@ print(p3)
 #posee una mejor distribución y una mayor normalidad que la clase 
 #recurrence-events, pues esta última tiene 2 datos alejados del centro.
 
-dl.class_inv.nodes <- data.frame(class_inv.nodes)
 p4 <- ggboxplot(
-  dl.class_inv.nodes,
+  class_inv.nodesGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Inv.nodes",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -274,9 +222,8 @@ print(p4)
 #sus datos estan fuera del rango de sus respectivas cajas, sobre todo para la
 #clase no-recurrence-events.
 
-dl.class_node.caps <- data.frame(class_node.caps)
 p5 <- ggboxplot(
-  dl.class_node.caps,
+  class_node.capsGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Node.caps",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -290,9 +237,8 @@ print(p5)
 #tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
 #presente una variación de su normalidad. Solo varían en sus cantidades totales.
 
-dl.class_deg.malig <- data.frame(class_deg.malig)
 p6 <- ggboxplot(
-  dl.class_deg.malig,
+  class_deg.maligGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Deg.malig",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -306,9 +252,8 @@ print(p6)
 #distribución y normalidad con respecto a la clase no-recurrence-events, dado
 #que esta última tiene un dato casi fuera de rango.
 
-dl.class_breast <- data.frame(class_breast)
 p7 <- ggboxplot(
-  dl.class_breast,
+  class_breastGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Breast",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -322,9 +267,8 @@ print(p7)
 #tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
 #presente una variación de su normalidad. Solo varias en sus cantidades totales.
 
-dl.class_breast.quad <- data.frame(class_breast.quad)
 p8 <- ggboxplot(
-  dl.class_breast.quad,
+  class_breast.quadGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Breast.quad",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -338,9 +282,8 @@ print(p8)
 #distribución y normalidad con respecto a la clase no-recurrence-events, dado
 #que esta última tiene un promedio más alejado hacia abajo que más centralizado.
 
-dl.class_irradiat <- data.frame(class_irradiat)
 p9 <- ggboxplot(
-  dl.class_irradiat,
+  class_irradiatGrafico,
   x = "class", y = "Freq", title = "Class según distribución por Irradiat",
   xlab = "Tipos de clases", ylab = "Cantidad de individuos",
   color = "class",
@@ -352,7 +295,60 @@ p9 <- ggboxplot(
 print(p9)
 #Para el caso de class_irradiat, como ambas clases presentan 2 tipos de datos,
 #tienen una normalidad perfecta. Se necesitarian más tipos de datos para que se
-#presente una variación de su normalidad. Solo varias en sus cantidades totales
+#presente una variación de su normalidad. Solo varias en sus cantidades totales.
+
+#-------------------------------------------------------------------------------
+
+#Calculamos las distintas correlaciones entre los datos.
+
+#En este caso las correlaciones entre la clase principal y los atributos
+
+cor.class_age <- assocstats(class_age)
+cor.class_menopause <- assocstats(class_menopause)
+cor.class_tumor.size <- assocstats(class_tumor.size)
+cor.class_inv.nodes <- assocstats(class_inv.nodes)
+cor.class_node.caps <- assocstats(class_node.caps)
+cor.class_deg.malig <- assocstats(class_deg.malig)
+cor.class_breast <- assocstats(class_breast)
+cor.class_breast.quad <- assocstats(class_breast.quad)
+cor.class_irradiat <- assocstats(class_irradiat)
+
+
+#Se crea una tabla para mostrar todo
+tablaDatos = matrix(c(cor.class_age$cramer, cor.class_menopause$cramer,
+                      cor.class_tumor.size$cramer, cor.class_inv.nodes$cramer,
+                      cor.class_node.caps$cramer, cor.class_deg.malig$cramer,
+                      cor.class_breast$cramer, cor.class_breast.quad$cramer,
+                      cor.class_irradiat$cramer), ncol=9,byrow=TRUE)
+
+#Se le asigna nombre a las columnas
+colnames(tablaDatos) =  c("Age",
+                          "Menopause",
+                          "Tumor.size",
+                          "Inv.nodes",
+                          "Node.caps",
+                          "Deg.malig",
+                          "Breast",
+                          "Breast.quad",
+                          "Irradiat")
+#y a las filas
+rownames(tablaDatos) = c("Class"
+)
+
+
+#Finalmente se convierte a tabla y se muestra
+tablaDeCorrelaciones=as.table(tablaDatos)
+tablaDeCorrelaciones
+
+tablaDeCorrelaciones <- as.data.frame(tablaDeCorrelaciones)
+
+library (ggplot2) 
+
+#Gráfico de las correlaciones de los distintos atributos con respecto a la clase
+
+ggplot(data=tablaDeCorrelaciones, aes(x=reorder(Var2, -Freq), y=Freq, fill = Var2)) + 
+  geom_bar(stat="identity", position="stack")+ theme_minimal()
+
 
 #Se puede análizar este test para calcular la asociación
 with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
@@ -368,19 +364,23 @@ with(as.data.frame(tabla), fisher.test( table(class, irradiat)))
 #Cálculamos las distintas asociaciones entre variables
 #con respecto a la clase
 
-with(as.data.frame(tabla), fisher.test( table(class, age)))
+with(as.data.frame(tabla), fisher.test(class_age))
 
-with(as.data.frame(tabla), fisher.test( table(class, menopause)))
+with(as.data.frame(tabla), fisher.test(class_menopause))
 
-with(as.data.frame(tabla), fisher.test( table(class, inv.nodes)))
+with(as.data.frame(tabla), fisher.test(class_tumor.size, workspace = 2e8))
 
-with(as.data.frame(tabla), fisher.test( table(class, node.caps)))
+with(as.data.frame(tabla), fisher.test(class_inv.nodes))
 
-with(as.data.frame(tabla), fisher.test( table(class, deg.malig)))
+with(as.data.frame(tabla), fisher.test(class_node.caps))
 
-with(as.data.frame(tabla), fisher.test( table(class, breast)))
+with(as.data.frame(tabla), fisher.test(class_deg.malig))
 
-with(as.data.frame(tabla), fisher.test( table(class, breast.quad)))
+with(as.data.frame(tabla), fisher.test(class_breast))
+
+with(as.data.frame(tabla), fisher.test(class_breast.quad))
+
+with(as.data.frame(tabla), fisher.test(class_irradiat))
 
 #Resumen
 #Hasta el momento sabemos que hay variables
